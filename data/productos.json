@@ -1,1 +1,11 @@
-
+[
+  {
+    "id": 1,
+    "name": "Producto prueba",
+    "price": 1000,
+    "desc": "Ejemplo",
+    "img": "",
+    "cat": "ferreteria",
+    "status": "activo"
+  }
+]
