@@ -8,13 +8,12 @@ public_folder: "/img"
 collections:
   - name: "productos"
     label: "Productos"
-    folder: "productos"
+    folder: "data/productos"
     create: true
-    format: "json"
-    extension: "json"
     slug: "{{slug}}"
     fields:
-      - { label: "Nombre", name: "title", widget: "string" }
-      - { label: "Precio", name: "price", widget: "string" }
-      - { label: "Imagen", name: "image", widget: "image" }
-      - { label: "Categoría", name: "category", widget: "string" }
+      - { label: "Nombre", name: "name", widget: "string" }
+      - { label: "Precio", name: "price", widget: "number" }
+      - { label: "Descripción", name: "desc", widget: "text" }
+      - { label: "Imagen", name: "img", widget: "image" }
+      - { label: "Categoría", name: "cat", widget: "string" }
