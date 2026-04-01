@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gasfitería en Acción</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg-dark: #0d1b2a;
+      --color-bg-nav: #0d1b2a;
+      --color-green: #22c55e;
+      --color-green-dark: #16a34a;
+      --color-green-light: #4ade80;
+      --color-white: #ffffff;
+      --color-text-muted: rgba(255,255,255,0.85);
+      --color-overlay: rgba(10, 20, 35, 0.62);
+      --color-btn-outline-border: rgba(255,255,255,0.55);
+      --color-badge-bg: rgba(255,255,255,0.12);
+      --font-main: 'Inter', sans-serif;
+      --radius-btn: 12px;
+      --radius-badge: 50px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: var(--font-main);
+      background: var(--color-bg-dark);
+      color: var(--color-white);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: var(--color-bg-nav);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 58px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-logo span {
+      color: var(--color-green);
+    }
+
+    .nav-hamburger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--color-white);
+      border-radius: 2px;
+      transition: 0.2s ease;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 58px;
+      left: 0;
+      right: 0;
+      background: var(--color-bg-nav);
+      z-index: 9998;
+      padding: 20px;
+      flex-direction: column;
+      gap: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 58px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 60px 24px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('img/fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.55) saturate(0.8);
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 22, 38, 0.45) 0%,
+        rgba(10, 22, 38, 0.58) 50%,
+        rgba(10, 22, 38, 0.72) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 680px;
+      gap: 0;
+    }
+
+    /* Location badge */
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-badge);
+      padding: 7px 16px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--color-white);
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    .location-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--color-green);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Hero heading */
+    .hero-title {
+      font-size: clamp(2.8rem, 9vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--color-white);
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title-accent {
+      display: block;
+      color: var(--color-green);
+      font-size: clamp(2.8rem, 9vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.65;
+      max-width: 480px;
+      margin-bottom: 36px;
+    }
+
+    /* CTA Buttons */
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--color-green);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius-btn);
+      padding: 18px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: var(--font-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.15s ease;
+      line-height: 1.3;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-green-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary .btn-icon {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--color-white);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius-btn);
+      padding: 18px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: var(--font-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+      line-height: 1.3;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.75);
+      transform: translateY(-1px);
+    }
+
+    /* Trust badges */
+    .trust-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .trust-icon {
+      width: 18px;
+      height: 18px;
+      background: var(--color-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    /* Scroll chevron */
+    .scroll-chevron {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.4rem;
+      animation: bounce 2s ease infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ===== WHATSAPP FAB ===== */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 9997;
+      width: 54px;
+      height: 54px;
+      background: var(--color-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(34, 197, 94, 0.45);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .whatsapp-fab:hover {
+      transform: scale(1.08);
+      background: var(--color-green-dark);
+    }
+
+    .whatsapp-fab svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    /* ===== SERVICES SECTION ===== */
+    .services {
+      background: #0f1e30;
+      padding: 64px 24px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--color-green);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .section-title span {
+      color: var(--color-green);
+    }
+
+    .section-subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 24px 20px;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+
+    .service-card:hover {
+      background: rgba(255,255,255,0.09);
+      transform: translateY(-2px);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(34, 197, 94, 0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+    }
+
+    .service-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .service-card p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    /* ===== WHY US ===== */
+    .why-us {
+      background: #0d1b2a;
+      padding: 64px 24px;
+    }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .why-num {
+      width: 36px;
+      height: 36px;
+      background: var(--color-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .why-text h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .why-text p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      position: relative;
+      background: url('img/fondoindex2.jpg') center/cover no-repeat;
+      padding: 64px 24px;
+      text-align: center;
+    }
+
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+      135deg,
+      rgba(15, 42, 26, 0.85),
+      rgba(13, 27, 42, 0.9)
+      );
+    }
+
+    .cta-section * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .cta-section h2 span {
+      color: var(--color-green);
+    }
+
+    .cta-section p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 32px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-outline {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #07111c;
+      padding: 40px 24px 24px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: 8px;
+    }
+
+    .footer-logo span {
+      color: var(--color-green);
+    }
+
+    .footer-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 280px;
+    }
+
+    .footer-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 24px 0;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-copy span {
+      color: var(--color-green);
+    }
+
+    /* ===== TIENDA / CATÁLOGO ===== */
+    .store {
+      background: #0b1929;
+      padding: 64px 24px 80px;
+    }
+
+    .catalog-layout {
+      display: flex;
+      gap: 24px;
+      max-width: 780px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    /* --- SIDEBAR --- */
+    .catalog-sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .sidebar-categories {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .sidebar-title {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--color-green);
+      color: var(--color-white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 11px 16px;
+    }
+
+    .cat-list {
+      list-style: none;
+      padding: 10px 0;
+    }
+
+    .cat-list li {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cat-list li:last-child {
+      border-bottom: none;
+    }
+
+    .cat-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .cat-link:hover,
+    .cat-link.active {
+      color: var(--color-green);
+      background: rgba(34,197,94,0.07);
+    }
+
+    .cat-count {
+      background: rgba(255,255,255,0.1);
+      border-radius: 50px;
+      padding: 2px 7px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .cat-link.active .cat-count {
+      background: rgba(34,197,94,0.2);
+      color: var(--color-green);
+    }
+
+    /* --- BUSCADOR SIDEBAR --- */
+    .sidebar-search {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .search-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 10px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .search-input {
+      flex: 1;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: var(--color-white);
+      font-family: var(--font-main);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .search-input:focus {
+      border-color: var(--color-green);
+    }
+
+    .search-btn {
+      background: #1a1a1a;
+      color: var(--color-white);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: var(--font-main);
+      cursor: pointer;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover {
+      background: var(--color-green);
+    }
+
+    /* --- GRID PRODUCTOS --- */
+    .catalog-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+    }
+
+    .product-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f0f0f0;
+      overflow: hidden;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding: 12px 12px 14px;
+      background: #fff;
+    }
+
+    .product-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .product-price {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .product-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: var(--font-main);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      line-height: 1.2;
+    }
+
+    .product-btn:hover {
+      background: var(--color-green);
+    }
+
+    .product-btn.added {
+      background: var(--color-green);
+    }
+
+    /* No results */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 20px;
+    }
+
+    .no-results .coming-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .no-results h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .no-results p { font-size: 0.85rem; color: rgba(255,255,255,0.55); }
+
+    /* --- CARRITO TOAST --- */
+    .cart-toast {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 9996;
+      background: var(--color-green);
+      color: #fff;
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(34,197,94,0.4);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    .cart-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- CARRITO FAB --- */
+    .cart-fab {
+      position: fixed;
+      bottom: 88px;
+      right: 20px;
+      z-index: 9996;
+      width: 52px;
+      height: 52px;
+      background: #111;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .cart-fab:hover {
+      transform: scale(1.08);
+      background: var(--color-green);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--color-green);
+      color: #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0b1929;
+    }
+
+    /* --- CARRITO PANEL --- */
+    .cart-panel {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      max-width: 360px;
+      background: #0f1e30;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-left: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px 18px 0 0;
+      z-index: 9995;
+      padding: 20px 20px 28px;
+      transform: translateY(100%);
+      transition: transform 0.35s ease;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+    }
+
+    .cart-panel.open {
+      transform: translateY(0);
+    }
+
+    .cart-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .cart-panel-header h3 {
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .cart-close {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .cart-close:hover { background: rgba(255,255,255,0.15); }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 14px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.83rem;
+    }
+
+    .cart-item-name { font-weight: 600; flex: 1; }
+    .cart-item-price { font-weight: 800; color: var(--color-green); margin: 0 10px; }
+
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      padding: 0 4px;
+    }
+    .cart-item-remove:hover { color: #ef4444; }
+
+    .cart-total-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      padding: 12px 0 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cart-total-row strong {
+      font-size: 1.1rem;
+      color: var(--color-green);
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+      padding: 20px 0;
+    }
+
+    /* Filtros antiguos (mantener compatibilidad) */
+    .store-filters { display: none; }
+
+    /* --- RESPONSIVE CATALOG --- */
+    @media (max-width: 600px) {
+      .catalog-layout {
+        flex-direction: column;
+      }
+      .catalog-sidebar {
+        width: 100%;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn-primary, .btn-outline {
+        width: 100%;
+        padding: 16px 18px;
+        font-size: 0.9rem;
+      }
+
+      .trust-badges {
+        gap: 14px;
+      }
+
+      .trust-item {
+        font-size: 0.75rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer a {
+      color: #4ade80;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+    footer a {
+      color: #4ade80;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #22c55e;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#" class="nav-logo">Gasfitería <span>en Acción</span></a>
+    <button class="nav-hamburger" id="menuBtn" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#servicios">Servicios</a>
+    <a href="/tienda.html">Tienda</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <!-- Location badge -->
+        <span class="location-badge">Pudahuel y Santiago</span>
+
+        <!-- Heading -->
+        <h1 class="hero-title">Gasfitería</h1>
+        <span class="hero-title-accent">en Acción</span>
+
+        <!-- Subtitle -->
+        <p class="hero-subtitle">
+          Soluciones rápidas y efectivas para tus problemas de gasfitería. Técnicos profesionales disponibles para ayudarte.
+        </p>
+
+        <!-- Buttons -->
+        <div class="hero-buttons">
+          <a href="https://wa.me/56920654656?text=Hola%2C%20quisiera%20más%20información%20sobre%20sus%20servicios%20de%20gasfitería" 
+            class="btn-primary" 
+            target="_blank">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Solicita tu servicio ahora
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="https://wa.me/56920654656" class="btn-outline" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Contáctanos por WhatsApp
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="trust-badges">
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            Técnicos certificados
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            Respuesta rápida
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            Trabajo garantizado
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll chevron -->
+      <div class="scroll-chevron" onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">
+        &#8964;
+      </div>
+    </section>
+
+<section style="text-align:center; padding:50px 20px;">
+  <a href="/tienda.html" class="btn-primary" style="max-width:500px; margin:auto;">
+    🛒 Ver Tienda
+  </a>
+</section>
+
+    <!-- SERVICIOS -->
+    <section class="services" id="servicios">
+      <div class="section-header">
+        <span class="section-tag">Lo que ofrecemos</span>
+        <h2 class="section-title">Nuestros <span>Servicios</span></h2>
+        <p class="section-subtitle">Atendemos todo tipo de problemas de gasfiteria con rapidez y profesionalismo.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">💧</div>
+          <h3>Recuperacion de flujo de agua por sarro</h3>
+          <p>Limpieza y desincrustacion de canerias para restaurar el caudal normal de agua.</p>
+          <a href="https://wa.me/56920654656?text=Hola%2C%20quiero%20recuperar%20el%20flujo%20de%20agua%20por%20sarro" 
+            target="_blank" 
+            class="btn-primary" 
+            style="margin-top:10px; font-size:0.75rem; padding:10px;">
+            Solicitar servicio
+          </a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚿</div>
+          <h3>Venta accesorios para baño</h3>
+          <p>Amplio catalogo de accesorios y repuestos para tu bano. Consulta disponibilidad.</p>
+          <a href="tienda.html#accesorios-duchas" 
+            class="btn-primary" 
+            style="margin-top:10px; font-size:0.75rem; padding:10px;">
+            Ver productos
+          </a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔥</div>
+          <h3>Reparacion y Mantencion de Calefont</h3>
+          <p>Diagnostico, reparacion y servicio tecnico de calefont de todas las marcas.</p>
+          <a href="https://wa.me/56920654656?text=Hola%2C%20quiero%20información%20sobre%20reparación%20de%20calefont" 
+            target="_blank" 
+            class="btn-primary" 
+            style="margin-top:10px; font-size:0.75rem; padding:10px;">
+            Solicitar servicio
+          </a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔩</div>
+          <h3>Venta de repuestos para calefont</h3>
+          <p>Repuestos originales y compatibles para todo tipo de calefont. Despacho disponible.</p>
+          <a href="tienda.html#repuestos-calefont" 
+            class="btn-primary" 
+            style="margin-top:10px; font-size:0.75rem; padding:10px;">
+            Ver repuestos
+          </a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <h3>Instalacion y reparacion de griferias y fugas</h3>
+          <p>Instalamos y reparamos llaves, mezcladores y cualquier tipo de fuga de agua.</p>
+          <a href="https://wa.me/56920654656?text=Hola%2C%20tengo%20una%20fuga%20de%20agua%20y%20necesito%20ayuda" 
+            target="_blank" 
+            class="btn-primary" 
+            style="margin-top:10px; font-size:0.75rem; padding:10px;">
+            Solicitar servicio
+          </a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚚</div>
+          <h3>Despacho a todo Chile</h3>
+          <p>Enviamos accesorios y repuestos a cualquier region del pais. Consulta plazos y costos.</p>
+          <br>
+          <a href="https://wa.me/56920654656?text=Hola%2C%20quiero%20consultar%20plazos%20y%20costos%20de%20despacho" 
+            target="_blank" 
+            class="btn-primary" 
+            style="margin-top:10px; font-size:0.75rem; padding:10px;">
+            Consultar
+          </a>
+        </div>
+      </div>
+    </section>
+
+   
+    <!-- CTA FINAL -->
+    <section class="cta-section" id="contacto">
+      <h2>¿Necesitas un <span>gasfiter ahora?</span></h2>
+      <p>Contáctanos y un técnico se comunicará contigo en minutos. Servicio disponible en Pudahuel y Santiago.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/56920654656?text=Hola%2C%20quisiera%20más%20información%20sobre%20sus%20servicios%20de%20gasfitería" 
+          class="btn-primary" 
+          target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Solicita tu servicio ahora
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="https://wa.me/56920654656" class="btn-outline" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Contáctanos por WhatsApp
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Gasfitería <span>en Acción</span></div>
+
+    <p class="footer-desc">
+      Somos una tienda líder en recuperación de flujo de agua, por incrustaciones por sarro.
+    </p>
+
+    <div style="margin-bottom:30px;">
+      <p style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Síguenos:</p>
+      <div style="display:flex; gap:15px; font-size:3.0rem;">
+        <a href="https://www.instagram.com/gasfiteriaenaccion/" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://web.facebook.com/profile.php?id=100094643080951" target="_blank">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://www.tiktok.com/@gasfiteria.en.accion" target="_blank">
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+
+    <div style="margin-bottom:30px; margin-top:30px;">
+      <p style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Ubicación:</p>
+      <p style="font-size:0.85rem;">SERRANO #1167, PUDAHUEL</p>
+    </div>
+
+    <hr class="footer-divider" />
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Gasfitería <span>en Acción</span></p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp FAB -->
+  <a href="https://wa.me/56920654656" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <script>
+    // ===== MENÚ MOBILE =====
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ===== FILTRO CATEGORÍAS SIDEBAR =====
+    document.querySelectorAll('.cat-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.cat-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        filterProducts();
+      });
+    });
+
+    function filterProducts() {
+      const activeCat = document.querySelector('.cat-link.active')?.dataset.cat || 'all';
+      const query = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.product-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const matchCat = activeCat === 'all' || card.dataset.cat === activeCat;
+        const matchSearch = !query || (card.dataset.name || '').includes(query);
+        const show = matchCat && matchSearch;
+        card.style.display = show ? 'block' : 'none';
+        if (show) visible++;
+      });
+
+      const noResults = document.getElementById('noResults');
+      if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    document.getElementById('searchInput')?.addEventListener('keyup', e => {
+      if (e.key === 'Enter') filterProducts();
+    });
+
+    // ===== CARRITO =====
+    let cart = [];
+
+    function addToCart(btn, name, price) {
+      cart.push({ name, price });
+      updateCartUI();
+
+      btn.classList.add('added');
+      const original = btn.innerHTML;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Agregado';
+      setTimeout(() => {
+        btn.classList.remove('added');
+        btn.innerHTML = original;
+      }, 1800);
+
+      showToast(name);
+    }
+
+    function showToast(name) {
+      const toast = document.getElementById('cartToast');
+      document.getElementById('cartToastMsg').textContent = '"' + name + '" agregado';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    function updateCartUI() {
+      const fab = document.getElementById('cartFab');
+      const countEl = document.getElementById('cartCount');
+      const itemsEl = document.getElementById('cartItems');
+      const totalEl = document.getElementById('cartTotal');
+
+      fab.style.display = cart.length > 0 ? 'flex' : 'none';
+      countEl.textContent = cart.length;
+
+      if (cart.length === 0) {
+        itemsEl.innerHTML = '<div class="cart-empty">Tu carrito esta vacio</div>';
+        totalEl.textContent = '$0';
+        return;
+      }
+
+      itemsEl.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+          <span class="cart-item-name">${item.name}</span>
+          <span class="cart-item-price">${item.price}</span>
+          <button class="cart-item-remove" onclick="removeFromCart(${i})">✕</button>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => {
+        const num = parseInt(item.price.replace(/\D/g, '')) || 0;
+        return sum + num;
+      }, 0);
+      totalEl.textContent = '$' + total.toLocaleString('es-CL');
+
+      const waMsg = 'Hola, me interesa comprar: ' + cart.map(i => i.name + ' ' + i.price).join(', ');
+      document.getElementById('cartWaBtn').href = 'https://wa.me/56920654656?text=' + encodeURIComponent(waMsg);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function toggleCart() {
+      document.getElementById('cartPanel').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
