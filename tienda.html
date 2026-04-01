@@ -1191,15 +1191,31 @@ let activeCat   = 'all';
 let detailProduct = null;
 
 async function loadData() {
-  try {
-    const res = await fetch('/data/productos.json');
-    allProducts = await res.json();
-  } catch (err) {
-    console.error('Error cargando productos', err);
-    allProducts = [];
-  }
+  const grid = document.getElementById('productsGrid');
 
-  categories = []; // opcional por ahora
+  try {
+    const res = await fetch('data/productos.json');
+
+    if (!res.ok) {
+      throw new Error('No se pudo cargar el JSON');
+    }
+
+    allProducts = await res.json();
+
+    console.log('Productos cargados:', allProducts);
+
+  } catch (err) {
+    console.error('ERROR:', err);
+
+    grid.innerHTML = `
+      <div class="empty-state">
+        <h3>Error cargando productos</h3>
+        <p>Revisa productos.json</p>
+      </div>
+    `;
+
+    return;
+  }
 
   buildCatList();
   applyFilters();
