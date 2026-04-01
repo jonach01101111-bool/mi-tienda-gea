@@ -1,1 +1,11 @@
-
+[
+  {
+    "id": 1,
+    "name": "Caja de pilas",
+    "price": 4500,
+    "desc": "Repuesto calefont",
+    "img": "",
+    "cat": "repuestos-calefont",
+    "status": "activo"
+  }
+]
