@@ -1190,9 +1190,21 @@ let cart = JSON.parse(sessionStorage.getItem('gea_cart') || '[]');
 let activeCat   = 'all';
 let detailProduct = null;
 
-function loadData() {
-  const saved = localStorage.getItem('gea_products');
-  const savedCats = localStorage.getItem('gea_cats');
+async function loadData() {
+  try {
+    const res = await fetch('/data/productos.json');
+    allProducts = await res.json();
+  } catch (err) {
+    console.error('Error cargando productos', err);
+    allProducts = [];
+  }
+
+  categories = []; // opcional por ahora
+
+  buildCatList();
+  applyFilters();
+  updateCartUI();
+}
 
   if (saved) {
     allProducts = JSON.parse(saved).filter(p => p.status === 'activo' || p.status !== 'inactivo');
