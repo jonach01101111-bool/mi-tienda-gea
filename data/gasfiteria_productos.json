@@ -1,1 +1,66 @@
-
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Caja de Pilas Neckar",
+      "price": 4100,
+      "priceOld": null,
+      "cat": "repuestos-calefont",
+      "status": "activo",
+      "img": "",
+      "desc": ""
+    },
+    {
+      "id": 2,
+      "name": "Caja de pilas Splendid",
+      "price": 4500,
+      "priceOld": null,
+      "cat": "repuestos-calefont",
+      "status": "activo",
+      "img": "",
+      "desc": ""
+    },
+    {
+      "id": 3,
+      "name": "Central corto",
+      "price": 3490,
+      "priceOld": null,
+      "cat": "repuestos-calefont",
+      "status": "activo",
+      "img": "",
+      "desc": ""
+    },
+    {
+      "id": 4,
+      "name": "Central largo",
+      "price": 3490,
+      "priceOld": null,
+      "cat": "repuestos-calefont",
+      "status": "activo",
+      "img": "",
+      "desc": ""
+    }
+  ],
+  "categories": [
+    {
+      "slug": "repuestos-calefont",
+      "name": "Repuestos Calefont"
+    },
+    {
+      "slug": "accesorios-duchas",
+      "name": "Accesorio De Duchas"
+    },
+    {
+      "slug": "ferreteria",
+      "name": "Ferretería"
+    },
+    {
+      "slug": "kit-mantencion",
+      "name": "Kit Mantención Calefont"
+    },
+    {
+      "slug": "modulo-control",
+      "name": "Módulo Control Calefont"
+    }
+  ]
+}
