@@ -1197,7 +1197,7 @@ async function loadData() {
   const grid = document.getElementById('productsGrid');
 
   try {
-    const res = await fetch('data/productos.json');
+    const res = await fetch('data/gasfiteria_productos.json');
 
     if (!res.ok) {
       throw new Error('No se pudo cargar el JSON');
@@ -1213,7 +1213,7 @@ async function loadData() {
     grid.innerHTML = `
       <div class="empty-state">
         <h3>Error cargando productos</h3>
-        <p>Revisa productos.json</p>
+        <p>Revisa gasfiteria_productos.json</p>
       </div>
     `;
 
@@ -1618,7 +1618,7 @@ document.addEventListener('mousemove', function(e) {
 });
   
 <script>
-fetch('data/productos.json')
+fetch('data/gasfiteria_productos.json')
   .then(res => res.json())
   .then(productos => {
 
