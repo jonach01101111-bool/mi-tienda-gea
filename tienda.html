@@ -1105,6 +1105,9 @@
 
   <!-- PRODUCTS AREA -->
   <main class="store-main">
+    
+    <div id="productos-container"></div>
+
     <div class="main-toolbar">
       <span class="results-info" id="resultsInfo">Cargando productos...</span>
       <select class="sort-select" id="sortSelect" onchange="applyFilters()">
@@ -1613,6 +1616,34 @@ document.addEventListener('mousemove', function(e) {
     img.style.transform = "scale(1)";
   }
 });
+  
+<script>
+fetch('data/productos.json')
+  .then(res => res.json())
+  .then(productos => {
+
+    const contenedor = document.getElementById('productos-container');
+
+    productos.forEach(p => {
+      const card = document.createElement('div');
+
+      card.style.border = "1px solid #333";
+      card.style.padding = "10px";
+      card.style.borderRadius = "10px";
+      card.style.margin = "10px";
+
+      card.innerHTML = `
+        <img src="${p.imagen}" style="width:100%; max-height:150px; object-fit:cover;">
+        <h3>${p.nombre}</h3>
+        <p>$${p.precio}</p>
+      `;
+
+      contenedor.appendChild(card);
+    });
+
+  });
+</script>
+  
 </script>
 </body>
 </html>
