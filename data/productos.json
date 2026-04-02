@@ -1,11 +1,14 @@
 [
   {
-    "id": 1,
-    "name": "Producto prueba",
-    "price": 1000,
-    "desc": "Ejemplo",
-    "img": "",
-    "cat": "ferreteria",
-    "status": "activo"
+    "nombre": "Llave de paso",
+    "precio": 5990,
+    "imagen": "img/llave.jpg",
+    "categoria": "Gasfitería"
+  },
+  {
+    "nombre": "Flexible de agua",
+    "precio": 2990,
+    "imagen": "img/flexible.jpg",
+    "categoria": "Conexiones"
   }
 ]
